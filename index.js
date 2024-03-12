@@ -2,7 +2,6 @@ let word = word_list[0].toUpperCase()
 let currentInputPos = 0
 let currentWordTrial = 0
 let inputsRows = []
-let validity = ['deep-blue', 'deep-blue', 'deep-blue', 'deep-blue', 'deep-blue']
 let inputGroup = document.querySelectorAll(".input-group")
 let input = ''
 let gameStart = false
@@ -10,7 +9,7 @@ const letterBtns = document.querySelectorAll("button.letter")
 const gameStartbtn = document.getElementById("game-start-btn")
 const gameLevelsContainer = document.getElementById("levels-container")
 let levelNum = localStorage.getItem("currentLevel") || '1'
-let levelData = {wordTrials: [], completed: false}
+let levelData = {wordTrials: []}
 let theme = localStorage.getItem("theme") || "light"
 const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)');
 const lossMsg = document.getElementById("loss-msg")
@@ -61,14 +60,13 @@ for (i=0; i<inputGroup.length; i++) {
 }
 
 let clearBtn = document.getElementById("clearBtn")
-clearBtn.addEventListener("click", ()=>{
+clearBtn.addEventListener("click", ()=>{ // Clears all data related to a level
   refreshGameData(true)
   localStorage.removeItem(levelNum)
-  levelData = {...levelData, wordTrials: []}
-}
-)
+  levelData = {wordTrials: []}
+})
 
-function generatelevels() {
+function generatelevelBtns() { 
   let levelsList = []
   for (let i=0; i<410; i++) {
     let button = document.createElement('button')
@@ -82,7 +80,7 @@ function generatelevels() {
   gameLevelsContainer.append(...levelsList)
 }
 
-generatelevels()
+generatelevelBtns()
 levelsToggle.addEventListener("click", (event)=>{
   event.stopPropagation()
   gameLevelsContainer.classList.toggle("show")
@@ -99,7 +97,7 @@ function loadLevel() {
       checkIfWordCorrect(wordData)
     })
   }else {
-    levelData = {wordTrials: [], completed: false}
+    levelData = {wordTrials: []}
   }
   localStorage.setItem('currentLevel', levelNum)
 }
@@ -129,6 +127,7 @@ function refreshGameData(newLevel) {
 
 function gameOver() {
   gameStart = false;
+  lossMsg.querySelector('p').textContent = "word: " + word
   lossMsg.classList.add("showMsg")
 }
 
@@ -137,7 +136,6 @@ function evaluateInput() {
   levelData.wordTrials.push(input)
   if (wordIsCorrect) {
     winMsg.classList.add("showMsg")
-    levelData.completed !== true ? levelData.completed = true : null;
   }else {
     if (currentWordTrial > 5) gameOver();
     refreshGameData();
@@ -146,41 +144,43 @@ function evaluateInput() {
 }
 
 function checkIfWordCorrect(wordTrial) {
-  let wordList = [...word]
+  let wordList = [...word] // makes it easier to mutate and work with
+
+  // Each string corresponds to the class of the input element at that same pos in a row. 
+  let charsClassList = ['deep-blue', 'deep-blue', 'deep-blue', 'deep-blue', 'deep-blue']
   for (let i=0; i< 5; i++) {
     if (wordTrial[i] === wordList[i]) {
-      validity[i] = 'green'
+      charsClassList[i] = 'green'
       wordList[i] = ''
     }
   }
   for (let i=0; i<5; i++) {
     let index = wordList.indexOf(wordTrial[i])
-    if (index > -1 && validity[i] !== "green") { // Not matched letter was found in wrong position
-      validity[i] = "pale-orange"
+    if (index > -1 && charsClassList[i] !== "green") { // Not matched letter was found in wrong position
+      charsClassList[i] = "pale-orange"
       wordList[index] = ''
     }
   }
-  let wordIsCorrect = validity.every((classStr)=>classStr === "green")
-  updateDisplay(wordTrial)
+  let wordIsCorrect = charsClassList.every((classStr)=>classStr === "green")
+  updateDisplay(wordTrial, charsClassList)
   return wordIsCorrect
 }
 
-function updateDisplay(inputString) {
+function updateDisplay(inputString, charsClassList) {
   for (let i=0; i<5; i++) {
     inputBox = inputsRows[currentWordTrial].item(i)
-    inputBox.classList = validity[i]
-    inputBox.value = inputString[i] // incase a new level was loaded
+    inputBox.classList = charsClassList[i]
+    inputBox.value = inputString[i] // incase a level with previously saved data is loaded.
     for (let j=0; j<26; j++){
       let button = letterBtns[j];
       if (inputBox.value === button.textContent) {
-        if (button.classList.contains('green')) break;
-        if (button.classList.contains('pale-orange') && validity[i] !== 'green') break;
-        button.classList = "letter " + validity[i];
+        if (button.classList.contains('green')) break; // Green color should always override other colors, followed by orange
+        if (button.classList.contains('pale-orange') && charsClassList[i] !== 'green') break;
+        button.classList = "letter " + charsClassList[i];
         break;
       }
     }
   }
-  validity = ['deep-blue', 'deep-blue', 'deep-blue', 'deep-blue', 'deep-blue']
   currentWordTrial++
 }
 
@@ -192,9 +192,10 @@ function addLettertoInput(letter) {
   }
 }
 
+// Add Event listeners to the onscreen keys/butttons for letter inputs
 letterBtns.forEach((button) => {
   button.addEventListener("click", (event)=>{
-    if (!gameStart || levelData.completed) return;
+    if (!gameStart) return;
     let letter = event.target.textContent.toUpperCase()
     if (!gameStart) return
     addLettertoInput(letter)
@@ -202,7 +203,7 @@ letterBtns.forEach((button) => {
 })
 
 document.addEventListener("keyup", (event)=>{
-  if (!gameStart || levelData.completed) return;
+  if (!gameStart) return;
   if (event.key === "Enter" && currentInputPos === 5) evaluateInput();
   else if (event.key === "Backspace"  && currentInputPos > 0) {
     inputsRows[currentWordTrial][currentInputPos - 1].value = '';
@@ -213,6 +214,7 @@ document.addEventListener("keyup", (event)=>{
   }
 });
 
+// Add Event listeners to the onscreen Enter and Backspace keys/butttons
 document.querySelectorAll("button.special").forEach((button) => {
   button.addEventListener("click", (event)=>{
     if (!gameStart) return;
