@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Wordle Game clone made by Adedamola Egbebi">
+    <meta property="og:title" content="Wordle Game Clone" />
+    <meta property="og:description" content="Wordle Game clone made by Adedamola Egbebi" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://papabob31-portfolio.netlify.app/" />
+    <meta property="og:image" content="https://papabob31-portfolio.netlify.app/images/website-screenshot.png" />
+    <meta property="og:image:type" content="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"/>
+    <title>Adedamola Egbebi</title>
+  </head>
+  <body class="not-playing">
+    <header>
+      <h1>Wordle</h1>
+      <div id="theme-container">
+        <button id="theme-dropdown-toggle">Theme ▼</button>
+        <ul id="theme-list">
+          <li><button id="light-theme-btn">
+            <span>Light</span>
+            <img src="./sun_icon.svg">
+          </button></li>
+          <li><button id="dark-theme-btn">
+            <span>Dark</span>
+            <img src="./moon_icon.svg">
+          </button></li>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <section id="intro">
+        <h1>Wordle</h1>
+        <h2 id="guide-header">How To Play</h2>
+        <ul>
+          <li>Guess the Wordle in 6 tries.</li>
+          <li>Each guess must be a valid 5-letter word.</li>
+        </ul>
+        <p id="p-1">The color of the tiles will change to show how close your guess was to the word.</p>
+        <h2 id="example-header">Examples</h2>
+        <div>
+          <span class="example green">W</span>
+          <span class="example ">E</span>
+          <span class="example ">A</span>
+          <span class="example ">R</span>
+          <span class="example ">Y</span>
+        </div>
+        <p class="game-play-steps">W is in the word and in the correct spot.</p>
+        <div>
+          <span class="example ">P</span>
+          <span class="example pale-orange">I</span>
+          <span class="example ">L</span>
+          <span class="example ">L</span>
+          <span class="example ">S</span>
+        </div>
+        <p class="game-play-steps">I is in the word but in the wrong spot.</p>
+        <div>
+          <span class="example ">V</span>
+          <span class="example ">A</span>
+          <span class="example ">G</span>
+          <span class="example deep-blue">U</span>
+          <span class="example ">E</span>
+        </div>
+        <p class="game-play-steps">U is not in the word in any spot.</p>
+        <button id="game-start-btn">Start Game</button>
+      </section>
+      <section id="levels">
+        <button id="levelsToggle">Level 1 ▼</button>
+        <button id="clearBtn">Clear level</button>
+        <div id="levels-container"></div>
+      </section>
+      <div class="input-group animate-child">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+      </div>
+      <div class="input-group animate-child">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+      </div> 
+      <div class="input-group animate-child">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+      </div> 
+      <div class="input-group animate-child">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+      </div> 
+      <div class="input-group animate-child">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+      </div> 
+      <div class="input-group animate-child">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+        <input type="text" readonly tabindex="-1">
+      </div>
+    </main>
+    <div id="button-group-1">
+      <button class="letter">Q</button>
+      <button class="letter">W</button>
+      <button class="letter">E</button>
+      <button class="letter">R</button>
+      <button class="letter">T</button>
+      <button class="letter">Y</button>
+      <button class="letter">U</button>
+      <button class="letter">I</button>
+      <button class="letter">O</button>
+      <button class="letter">P</button>
+    </div>
+    <div id="button-group-2">
+      <button class="letter">A</button>
+      <button class="letter">S</button>
+      <button class="letter">D</button>
+      <button class="letter">F</button>
+      <button class="letter">G</button>
+      <button class="letter">H</button>
+      <button class="letter">J</button>
+      <button class="letter">K</button>
+      <button class="letter">L</button>
+    </div>
+    <div id="button-group-3">
+      <button class="special">ENTER</button>
+      <button class="letter">Z</button>
+      <button class="letter">X</button>
+      <button class="letter">C</button>
+      <button class="letter">V</button>
+      <button class="letter">B</button>
+      <button class="letter">N</button>
+      <button class="letter">M</button>
+      <button class="special">
+        <img src="./close.svg" alt="x" id="close-svg">
+      </button>
+    </div>
+    <div id="win-msg">
+      <button class="close-btn">
+        <img src="./close.svg" alt="x">
+      </button>
+      <h2>You Won!</h2>
+    </div>
+    <div id="loss-msg">
+      <button class="close-btn">
+        <img src="./close.svg" alt="x">
+      </button>
+      <h2>You Lost!</h2>
+    </div>    
+  </body>
+  <script src="prod_word_list.js"></script>
+  <script src="index.js"></script>
+</html>

@@ -1,0 +1,529 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: white;
+  position: relative;
+  transition-duration: 0.4s;
+  background-color: rgb(252, 252, 252);
+}
+
+body.dark-theme {
+  background-color: rgb(50, 50, 50);
+}
+
+header {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+header h1 {
+  margin-right: 20px;
+}
+
+body.dark-theme header h1 {
+  color: white;
+}
+
+#theme-container {
+  width: 5rem;
+  position: relative;
+}
+
+#theme-dropdown-toggle {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgb(245, 245, 245);
+  border: 2px solid rgb(230, 230, 230);
+}
+
+#theme-list {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: white;
+  border: 2px solid rgb(240, 240, 240);
+  box-shadow: rgb(170, 170, 170) 4px 4px 3px;
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  transition: .3s;
+  transition-timing-function: ease-in-out;
+  position: absolute;
+  margin-top: 5px;
+  z-index: 100;
+}
+
+body.dark-theme #theme-dropdown-toggle {
+  background-color: rgb(100, 100, 100);
+  color: white;
+}
+
+body.dark-theme #theme-list {
+  border: 2px solid rgb(105, 105, 105);
+  background-color: rgb(100, 100, 100);
+  box-shadow: rgb(70, 70, 70) 4px 4px 3px;
+  color: white;
+}
+
+body.dark-theme #theme-list li:nth-child(1) {
+  border-bottom: 2px solid rgb(105, 105, 105);
+}
+
+#theme-list.show {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+#theme-list li {
+  list-style: none;
+}
+
+#theme-list button {
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: inherit;
+}
+
+#theme-list li:nth-child(1) {
+  border-bottom: 2px solid rgb(235, 235, 235);
+}
+
+#theme-list li img {
+  width: 50%;
+}
+
+#levelsToggle, #clearBtn {
+  background-color: rgb(230, 230, 230);
+  border: 1px solid rgb(190, 190, 190);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  margin-right: 10px;
+  font-weight: 400;
+}
+
+body.dark-theme #levelsToggle, body.dark-theme #clearBtn {
+  background-color: rgb(70, 70, 70);
+  border: 1px solid rgb(50, 50, 50);
+  color: white;
+}
+
+#levels {
+  position: relative;
+  margin: 10px 0;
+}
+
+#levels-container {
+  display: flex;
+  transform-origin: top left;
+  transform: scale(0, 0);
+  transition-duration: .3s;
+  transition-timing-function: ease-in-out;
+  opacity: 0;
+  flex-wrap: wrap;
+  width: 25vw;
+  height: 300px;
+  border: 1px solid rgb(150, 150, 150);
+  background-color: white;
+  overflow-y: auto;
+  position: absolute;
+  padding: 10px 10px 0 0;
+  left: 0;
+  top: 40px;
+  box-shadow: rgba(150, 150, 150, 0.5) 3px 3px 6px;
+  border-radius: 10px;
+  min-width: 230px;
+  z-index: 99;
+}
+
+body.dark-theme #levels-container {
+  background-color: rgb(80, 80, 80);
+  box-shadow: rgba(100, 100, 100, 0.5) 3px 3px 4px;
+}
+
+body.dark-theme #levels-container button {
+  background-color: rgb(50, 50, 50);
+  border: 1px solid rgb(40, 40, 40);
+  color: white;
+}
+
+#levels-container.show {
+  transform: scale(1,1);
+  opacity: 1;
+}
+
+#levels-container button {
+  width: 4%;
+  min-width: 3rem;
+  height: 2.5rem;
+  padding: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(230, 230, 230);
+  border: 1px solid rgb(190, 190, 190);
+  font-weight: semi-bold;
+}
+
+body.not-playing {
+  overflow: hidden;
+}
+
+main {
+  min-width: 300px;
+  width: 20%;
+  margin: 0 auto 20px;
+}
+
+#intro {
+  display: none;
+}
+
+body.dark-theme #intro {
+  background-color: rgb(50, 50, 50);
+  color: white;
+}
+
+#intro h1 {
+  font-size: 2rem;
+  margin-top: 5px;
+  line-height: 1;
+}
+
+#guide-header {
+  width: fit-content;
+  margin-top: 20px;
+  margin-left: 40vw;
+}
+
+#intro ul, #intro #p-1, 
+#intro #example-header, #intro div,
+.game-play-steps, #game-start-btn {
+  margin-left: 30vw;
+}
+
+#intro li {
+  margin-top: 10px;
+}
+
+#p-1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+#example-header {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.example {
+  display: inline-block;
+  border: 2px solid rgb(180, 180, 180);
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 2rem;
+  padding: 5px;
+}
+
+.example.green {
+  border: 1px solid rgb(70, 100, 70);
+  background-color: rgb(84, 180, 84);
+  color: white;
+}
+
+.example.pale-orange {
+  border: 1px solid rgb(150, 100, 50);
+  background-color: rgb(222, 153, 83);
+  color: white;
+}
+
+.example.deep-blue {
+  border: 1px solid rgb(100, 104, 110);
+  background-color: rgb(135, 139, 141);
+  color: white;
+}
+
+.game-play-steps {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+#game-start-btn {
+  background-color: rgb(230, 230, 230);
+  border: 1px solid rgb(190, 190, 190);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  margin-right: 10px;
+  font-weight: 400;
+}
+
+.not-playing #intro {
+  display: block;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  padding: 10px 30px;
+  background-color: white;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  overflow-y: scroll;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+input {
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 5px;
+  margin-right: 10px;
+  border-color: rgb(200, 200, 200);
+  border-width: 2px;
+  border-style: solid;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgba(80, 80, 80);
+  background-color: inherit;
+}
+
+div:not(.animate-child) input.green {
+  border: 1px solid rgb(70, 100, 70);
+  background-color: rgb(84, 180, 84);
+  color: white;
+}
+
+div:not(.animate-child) input.pale-orange {
+  border: 1px solid rgb(150, 100, 50);
+  background-color: rgb(222, 153, 83);
+  color: white;
+}
+
+div:not(.animate-child) input.deep-blue {
+  border: 1px solid rgb(100, 104, 110);
+  background-color: rgb(135, 139, 141);
+  color: white;
+}
+
+.animate-child input.green {
+  animation-name: rotate-green;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+.animate-child input.pale-orange {
+  animation-name: rotate-orange;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+.animate-child input.deep-blue {
+  animation-name: rotate-blue;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes rotate-green {
+  0% {
+    transform: perspective(500px) rotateX(0deg);
+  }
+  50% {
+    transform: perspective(none) rotateX(-90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+    border: 1px solid rgb(70, 100, 70);
+    background-color: rgb(84, 180, 84);
+    color: white;
+  }
+}
+
+@keyframes rotate-orange {
+  0% {
+    transform: perspective(500px) rotateX(0deg);
+  }
+  50% {
+    transform: perspective(none) rotateX(-90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+    border: 1px solid rgb(150, 100, 50);
+    background-color: rgb(222, 153, 83);
+    color: white;
+  }
+}
+
+@keyframes rotate-blue {
+  0% {
+    transform: perspective(500px) rotateX(0deg);
+  }
+  50% {
+    transform: perspective(none) rotateX(-90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+    border: 1px solid rgb(100, 104, 110);
+    background-color: rgb(135, 139, 141);
+    color: white;
+  }
+}
+
+input:nth-child(2) {
+  animation-delay: .5s;
+}
+
+input:nth-child(3) {
+  animation-delay: 1s; 
+}
+
+input:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+input:nth-child(5) {
+  animation-delay: 2s;  
+}
+
+body.dark-theme input {
+  color: rgba(230, 230, 230);
+}
+
+#button-group-1, #button-group-3 {
+  display: flex;
+  justify-content: space-between;
+  min-width: 475px;
+  width: 30%;
+  margin: 10px auto;
+}
+
+#button-group-2 {
+  display: flex;
+  justify-content: space-between;
+  min-width: 444px;
+  width: 28%;
+  margin: 10px auto;
+}
+
+.letter {
+  width: 9%;
+  padding: 5px;
+  height: 3.5rem;
+  vertical-align: top;
+  border-radius: 5px;
+  border: 1px solid rgb(200, 200, 200);
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: rgb(230, 230, 230);
+  color: rgba(40, 40, 40);
+}
+.special {
+  width: 12%;
+  height: 3.5rem;
+  padding: 5px;
+  vertical-align: top;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
+  font-weight: 600;
+  background-color: rgb(230, 230, 230);
+  color: rgba(40, 40, 40);
+}
+
+button.green {
+  border: 1px solid rgb(70, 100, 70);
+  background-color: rgb(84, 180, 84);
+  color: white;
+}
+
+button.pale-orange {
+  border: 1px solid rgb(150, 100, 50);
+  background-color: rgb(222, 153, 83);
+  color: white;
+}
+
+button.deep-blue {
+  border: 1px solid rgb(100, 104, 110);
+  background-color: rgb(135, 139, 141);
+  color: white;
+}
+
+button:focus {
+  outline: 1px solid rgb(70, 70, 250)
+}
+
+#close-svg {
+  width: 1rem;
+}
+
+#win-msg, #loss-msg {
+  position: absolute;
+  background-color: white;
+  box-shadow: rgb(150, 150, 150) 4px 4px 4px;
+  border-radius: 10px;
+  text-align: center;
+  width: 30vw;
+  min-height: 100px;
+  top: 20px;
+  left: 35vw;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  padding: 10px;
+  transform: translateY(-40px);
+  transition-property: all;
+  transition-delay: 0s;
+  transition-duration: .5s;
+}
+
+body.dark-theme #win-msg, body.dark-theme #loss-msg {
+  background-color: rgb(80, 80, 80)
+}
+
+#win-msg h2, #loss-msg h2 {
+  margin-top: 30px;
+}
+
+#win-msg.showMsg, #loss-Msg.showMsg {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 3s;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+}
+
+.close-btn img {
+  width: 1.5rem;
+}
+
+body.dark-theme .close-btn img {
+  fill: #ffffff;
+}
