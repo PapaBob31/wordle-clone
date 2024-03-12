@@ -502,10 +502,11 @@ body.dark-theme #win-msg, body.dark-theme #loss-msg {
 }
 
 #win-msg h2, #loss-msg h2 {
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-#win-msg.showMsg, #loss-Msg.showMsg {
+#win-msg.showMsg, #loss-msg.showMsg {
   visibility: visible;
   transform: translateY(0);
   opacity: 1;
