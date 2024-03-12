@@ -528,3 +528,50 @@ body.dark-theme #win-msg, body.dark-theme #loss-msg {
 body.dark-theme .close-btn img {
   fill: #ffffff;
 }
+
+@media (max-width: 700px) {
+  #guide-header {
+    margin-left: 20px;
+  }
+
+  #intro ul, #intro #p-1, 
+  #intro #example-header, #intro div,
+  .game-play-steps, #game-start-btn {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 550px) {
+  main {
+    min-width: unset;
+    width: 90%;
+    margin: 0 auto 20px;
+  }
+
+  .input-group {
+    justify-content: space-between;
+  }
+
+  input {
+    width: 16vw;
+    height: 16vw;
+    margin-right: 0;
+    padding: 3px;
+  }
+
+  #button-group-1, #button-group-3 {
+    min-width: unset;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0 5px;
+  }
+  
+  #button-group-2 {
+    min-width: unset;
+    width: 90%;
+    margin: 10px auto;
+  }
+  .special {
+    font-size: 0.7rem;
+  }
+}
