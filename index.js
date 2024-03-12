@@ -125,19 +125,23 @@ function refreshGameData(newLevel) {
   }
 }
 
-function gameOver() {
+function gameOver(gameWon) {
+  if (gameWon) {
+    winMsg.classList.add("showMsg")
+  }else {
+    lossMsg.querySelector('p').textContent = "word: " + word
+    lossMsg.classList.add("showMsg")
+  }
   gameStart = false;
-  lossMsg.querySelector('p').textContent = "word: " + word
-  lossMsg.classList.add("showMsg")
 }
 
 function evaluateInput() {
   let wordIsCorrect = checkIfWordCorrect(input)
   levelData.wordTrials.push(input)
   if (wordIsCorrect) {
-    winMsg.classList.add("showMsg")
+    gameOver(true)
   }else {
-    if (currentWordTrial > 5) gameOver();
+    if (currentWordTrial > 5) gameOver(false);
     refreshGameData();
   }
   localStorage.setItem(levelNum.toString(), JSON.stringify(levelData))
