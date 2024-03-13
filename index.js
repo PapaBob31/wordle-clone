@@ -64,6 +64,7 @@ clearBtn.addEventListener("click", ()=>{ // Clears all data related to a level
   refreshGameData(true)
   localStorage.removeItem(levelNum)
   levelData = {wordTrials: []}
+  clearBtn.blur() // To prevent triggering the button by mistake when Enter key is pressed
 })
 
 function generatelevelBtns() { 
@@ -73,6 +74,7 @@ function generatelevelBtns() {
     button.addEventListener("click", (event) => {
       levelNum = event.target.textContent
       loadLevel(levelNum)
+      event.target.blur() // To prevent triggering the button by mistake when Enter key is pressed
     })
     button.textContent = (i+1).toString()
     levelsList.push(button)
